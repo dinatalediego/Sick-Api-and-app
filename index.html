@@ -1,0 +1,61 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat con un Amigo en Alemán</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chat-box {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Chat con un Amigo en Alemán</h2>
+        <div class="chat-box" id="chatBox">
+            <!-- Mensajes del chat aparecerán aquí -->
+        </div>
+        <input type="text" id="userInput" class="form-control mb-3" placeholder="Escribe en inglés y pulsa enviar">
+        <button class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+    </div>
+
+    <script src="app.js"></script>
+    <!-- Dentro del body, debajo de los botones -->
+<div id="places"></div>
+
+<script>
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById('places'), {
+            center: { lat: 51.1657, lng: 10.4515 }, // Coordenadas aproximadas de Alemania
+            zoom: 5
+        });
+
+        const service = new google.maps.places.PlacesService(map);
+        service.textSearch({
+            query: 'places in Germany'
+        }, (results, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                results.forEach(place => {
+                    const marker = new google.maps.Marker({
+                        map: map,
+                        position: place.geometry.location,
+                        title: place.name
+                    });
+                });
+            }
+        });
+    }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8LSldNeOS7GxrUst1WYoYU1qLMe-TPVs&callback=initMap">
+</script>
+
+</body>
+</html>
